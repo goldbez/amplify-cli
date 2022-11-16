@@ -102,6 +102,21 @@ export function showAllHelp(context) {
     );
   }
 
+  if (context.input.subCommands! && Array.isArray(context.input.subCommands) && context.input.subCommands.length >= 1) {
+    let filtered_commands = commands.filter(pair => pair.name.includes(context.input.subCommands[0]));
+    if (filtered_commands.length > 0) {
+      showHelp(header, filtered_commands);
+
+      if (filtered_commands.some(pair => pair.name.includes("<category>"))) {
+        context.print.info('');
+        context.print.info(`where <category> is one of: ${listCategories(context)}`);
+        context.print.info('');
+      }
+
+      return;
+    }
+  }
+
   showHelp(header, commands);
   context.print.info('');
   context.print.info(`where <category> is one of: ${listCategories(context)}`);

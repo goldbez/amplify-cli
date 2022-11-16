@@ -74,6 +74,14 @@ function normalizeInput(input: Input): Input {
     }
 
     if (input.options[constants.HELP] || input.options[constants.HELP_SHORT]) {
+      if (input.options[constants.HELP] && typeof input.options[constants.HELP] === "string") {
+        input.subCommands = [input.options[constants.HELP] as string];
+      } else if (input.options[constants.HELP_SHORT] && typeof input.options[constants.HELP_SHORT] === "string") {
+        input.subCommands = [input.options[constants.HELP_SHORT] as string];
+      } else if (input.command! && input.command.toLocaleLowerCase() !== constants.HELP) {
+        input.subCommands = [input.command.toLocaleLowerCase()];
+      }
+      input.command = constants.HELP;
       input.options[constants.HELP] = true;
       delete input.options[constants.HELP_SHORT];
     }
