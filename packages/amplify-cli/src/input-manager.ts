@@ -63,10 +63,36 @@ export function getCommandLineInput(pluginPlatform: PluginPlatform): Input {
   return result;
 }
 
+function preserveHelpInformation(input: Input): Input {
+
+  if (input.command! && input.command.toLocaleLowerCase() !== constants.HELP) {
+    input.subCommands = input.subCommands! ? [input.command.toLocaleLowerCase(), ...input.subCommands] : [input.command.toLocaleLowerCase()];
+  }
+  
+  if (input.options && input.options[constants.HELP] && typeof input.options[constants.HELP] === "string") {
+    input.subCommands = input.subCommands! ? [...input.subCommands, input.options[constants.HELP] as string] : [input.options[constants.HELP] as string];
+  } else if (input.options && input.options[constants.HELP_SHORT] && typeof input.options[constants.HELP_SHORT] === "string") {
+    input.subCommands = input.subCommands! ? [...input.subCommands, input.options[constants.HELP_SHORT] as string] : [input.options[constants.HELP_SHORT] as string];
+  }
+
+  if (input.plugin! && input.plugin !== "core") {
+    input.subCommands = input.subCommands! ? [...input.subCommands, input.plugin] : [input.plugin];
+    input.plugin = "core";
+  }
+
+  if (input.options) {
+    input.options[constants.HELP] = true;
+    delete input.options[constants.HELP_SHORT];
+  }
+  input.command = constants.HELP;
+
+  return input;
+}
+
 function normalizeInput(input: Input): Input {
   // -v --version => version command
   // -h --help => help command
-  // -y --yes => yes option
+  // -y --yes => yes option  
   if (input.options) {
     if (input.options[constants.VERSION] || input.options[constants.VERSION_SHORT]) {
       input.options[constants.VERSION] = true;
@@ -74,8 +100,7 @@ function normalizeInput(input: Input): Input {
     }
 
     if (input.options[constants.HELP] || input.options[constants.HELP_SHORT]) {
-      input.options[constants.HELP] = true;
-      delete input.options[constants.HELP_SHORT];
+      preserveHelpInformation(input);
     }
 
     if (input.options[constants.YES] || input.options[constants.YES_SHORT]) {
