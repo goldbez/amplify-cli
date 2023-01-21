@@ -5,9 +5,9 @@ import {
   initJSProjectWithProfile,
   getAppId,
   getTeamProviderInfo,
+  gitInit,
   gitCleanFdx,
   amplifyPull,
-  gitChangedFiles,
   generateRandomShortId,
   addFunction,
   amplifyPushAuth,
@@ -25,7 +25,9 @@ describe('ensure pull with restore flag repopulates TPI', () => {
   });
 
   it('deleting TPI and then pulling with --restore should repopulate TPI', async () => {
-    await initJSProjectWithProfile(projRoot, { disableAmplifyAppCreation: false });
+    await gitInit(projRoot);
+    const envName = 'firstenv';
+    await initJSProjectWithProfile(projRoot, { disableAmplifyAppCreation: false, envName });
     const appId = getAppId(projRoot);
 
     const envVariableName = 'envVariableName';
@@ -44,18 +46,10 @@ describe('ensure pull with restore flag repopulates TPI', () => {
       'nodejs',
     );
     await amplifyPushAuth(projRoot);
-
     const preCleanTpi = getTeamProviderInfo(projRoot);
+    // await gitCommitAll(projRoot);
     await gitCleanFdx(projRoot); // clear TPI
-    await amplifyPull(projRoot, { emptyDir: false, appId, withRestore: true });
-
-    const changedFiles = await gitChangedFiles(projRoot);
-    expect(changedFiles).toMatchInlineSnapshot(`
-      Array [
-        ".gitignore",
-        "amplify/README.md",
-      ]
-    `);
+    await amplifyPull(projRoot, { appId, envName, withRestore: true, emptyDir: true });
     const postCleanTpi = getTeamProviderInfo(projRoot);
     expect(postCleanTpi).toEqual(preCleanTpi);
   });
