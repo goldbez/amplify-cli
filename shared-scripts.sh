@@ -532,6 +532,7 @@ function _downloadReportsFromS3 {
 
 function _waitForJobs {
 	expected_source_version=$1
+	jobs_depended_on=$2
 	fail_flag=0
 	all_batch_build_ids=$(aws codebuild list-build-batches-for-project --region us-east-1 --project-name AmplifyCLI-E2E-Testing --output json | jq '.ids | .[]')
 	for batch_build_id in $all_batch_build_ids
@@ -548,6 +549,11 @@ function _waitForJobs {
 		echo "Could not find batch with matching source version"
 		exit 1
 	fi
-	aws codebuild batch-get-build-batches --region us-east-1 --ids $(echo $batch_build_id | tr -d '"') | jq --arg job_id "$job_id" '.buildBatches[0].buildGroups'
 
+	batch_build_id=$(echo $batch_build_id | tr -d '"')
+	jobs_in_batch=$(aws codebuild batch-get-build-batches --region us-east-1 --ids $(echo $batch_build_id | tr -d '"') | jq --arg job_id "$job_id" '.buildBatches[0].buildGroups')
+	incomplete_job_ids_in_batch=$(echo $jobs_in_batch | jq -c '[map(select(.currentBuildSummary.buildStatus == "IN_PROGRESS")) | .[].identifier]')
+	intersecting_jobs=$(jq -n --argjson incomplete_job_ids_in_batch "$incomplete_job_ids_in_batch" --argjson jobs_depended_on "$jobs_depended_on" '$incomplete_job_ids_in_batch - ($incomplete_job_ids_in_batch - $jobs_depended_on)')
+	echo intersecting_jobs $intersecting_jobs
+	echo incomplete_job_ids_in_batch $incomplete_job_ids_in_batch
 }

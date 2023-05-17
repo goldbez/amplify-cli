@@ -5,4 +5,4 @@ phases:
   build:
     commands:
       - echo $CODEBUILD_SOURCE_VERSION
-      - source ./shared-scripts.sh && _waitForJobs $CODEBUILD_SOURCE_VERSION
+      - source ./shared-scripts.sh && _waitForJobs $CODEBUILD_SOURCE_VERSION $WAIT_IDS
