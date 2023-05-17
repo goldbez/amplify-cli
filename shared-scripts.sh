@@ -530,6 +530,23 @@ function _downloadReportsFromS3 {
     for file in $(find . -mindepth 2 -type f); do mv $file ./$(dirname $file).xml; done
 }
 
-# function _wait_for_jobs {
-    
-# }
+function _waitForJobs {
+	expected_source_version=$1
+	fail_flag=0
+	all_batch_build_ids=$(aws codebuild list-build-batches-for-project --region us-east-1 --project-name AmplifyCLI-E2E-Testing --output json | jq '.ids | .[]')
+	for batch_build_id in $all_batch_build_ids
+	do
+		current_source_version=$(aws codebuild batch-get-build-batches --region us-east-1 --ids $(echo $batch_build_id | tr -d '"') | jq '.buildBatches[0].sourceVersion' | tr -d '"')
+		if [ $current_source_version = $expected_source_version ]
+		then
+			fail_flag=1
+			break
+		fi
+	done
+	if [ $fail_flag = 0 ]
+	then
+		echo "Could not find batch with matching source version"
+		exit 1
+	fi
+	aws codebuild batch-get-build-batches --region us-east-1 --ids $(echo $batch_build_id | tr -d '"') | jq --arg job_id "$job_id" '.buildBatches[0].buildGroups'
+}

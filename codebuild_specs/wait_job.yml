@@ -4,5 +4,5 @@ env:
 phases:
   build:
     commands:
-      - echo $CODEBUILD_BATCH_BUILD_IDENTIFIER
-      - aws codebuild batch-get-build-batches --region us-east-1 --ids $CODEBUILD_BATCH_BUILD_IDENTIFIER
+      - echo $CODEBUILD_SOURCE_VERSION
+      - source ./shared-scripts.sh && _waitForJobs $CODEBUILD_SOURCE_VERSION
