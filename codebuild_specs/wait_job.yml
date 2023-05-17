@@ -4,6 +4,4 @@ env:
 phases:
   build:
     commands:
-      - echo $WAIT_IDS
-      - echo "for loop:"
-      - for i in $WAIT_IDS; do echo $i; done
+      - aws codebuild batch-get-build-batches --region us-east-1 --ids $CODEBUILD_BATCH_BUILD_IDENTIFIER
