@@ -25,7 +25,7 @@ batch:
       env:
         compute-type: BUILD_GENERAL1_LARGE
         variables:
-          SLEEP_NUM: 1000
+          SLEEP_NUM: 900
     - identifier: wait_job
       buildspec: codebuild_specs/wait_job.yml
       env:
