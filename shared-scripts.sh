@@ -552,7 +552,7 @@ function _waitForJobs {
 	fi
 
 	num_incomplete_jobs="1"
-	while [ "$num_incomplete_jobs" -gt 0 ]
+	while [ "$num_incomplete_jobs" -gt "0" ]
 	do
 		sleep 3
 		batch_build_id=$(echo $batch_build_id | tr -d '"')
@@ -561,6 +561,6 @@ function _waitForJobs {
 		intersecting_jobs=$(jq -n --argjson incomplete_job_ids_in_batch "$incomplete_job_ids_in_batch" --argjson jobs_depended_on_json "$jobs_depended_on_json" '$incomplete_job_ids_in_batch - ($incomplete_job_ids_in_batch - $jobs_depended_on_json)')
 		echo "Waiting for these jobs: $intersecting_jobs"
 		num_incomplete_jobs=$(echo $intersecting_jobs | jq '. | length')
+		echo "incomplete_job_ids_in_batch $incomplete_job_ids_in_batch"
 	done
-    
 }
