@@ -19,13 +19,13 @@ batch:
       env:
         compute-type: BUILD_GENERAL1_LARGE
         variables:
-          SLEEP_NUM: 5
+          SLEEP_NUM: 500
     - identifier: number_two
       buildspec: codebuild_specs/dummy_job.yml
       env:
         compute-type: BUILD_GENERAL1_LARGE
         variables:
-          SLEEP_NUM: 10
+          SLEEP_NUM: 1000
     - identifier: wait_job
       buildspec: codebuild_specs/wait_job.yml
       env:
