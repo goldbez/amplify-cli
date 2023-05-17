@@ -14,18 +14,18 @@ env:
 batch:
   fast-fail: false
   build-graph:
-    - identifier: number_one
-      buildspec: codebuild_specs/dummy_job.yml
-      env:
-        compute-type: BUILD_GENERAL1_LARGE
-        variables:
-          SLEEP_NUM: 500
-    - identifier: number_two
-      buildspec: codebuild_specs/dummy_job.yml
-      env:
-        compute-type: BUILD_GENERAL1_LARGE
-        variables:
-          SLEEP_NUM: 900
+    # - identifier: number_one
+    #   buildspec: codebuild_specs/dummy_job.yml
+    #   env:
+    #     compute-type: BUILD_GENERAL1_LARGE
+    #     variables:
+    #       SLEEP_NUM: 500
+    # - identifier: number_two
+    #   buildspec: codebuild_specs/dummy_job.yml
+    #   env:
+    #     compute-type: BUILD_GENERAL1_LARGE
+    #     variables:
+    #       SLEEP_NUM: 900
     - identifier: wait_job
       buildspec: codebuild_specs/wait_job.yml
       env:
