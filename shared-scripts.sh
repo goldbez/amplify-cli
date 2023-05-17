@@ -534,6 +534,7 @@ function _waitForJobs {
 	expected_source_version=$1
 	jobs_depended_on=$2
 	jobs_depended_on_json=$(echo $jobs_depended_on | jq -R 'split(" ")')
+	echo "jobs_depended_on_json $jobs_depended_on_json"
 	fail_flag="0"
 	all_batch_build_ids=$(aws codebuild list-build-batches-for-project --region us-east-1 --project-name AmplifyCLI-E2E-Testing --output json | jq '.ids | .[]')
 	for batch_build_id in $all_batch_build_ids
@@ -563,4 +564,5 @@ function _waitForJobs {
 		num_incomplete_jobs=$(echo $intersecting_jobs | jq '. | length')
 		echo "incomplete_job_ids_in_batch $incomplete_job_ids_in_batch"
 	done
+	echo "No specified jobs still in progress."
 }
