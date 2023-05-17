@@ -549,5 +549,5 @@ function _waitForJobs {
 		exit 1
 	fi
 	aws codebuild batch-get-build-batches --region us-east-1 --ids $(echo $batch_build_id | tr -d '"') | jq --arg job_id "$job_id" '.buildBatches[0].buildGroups'
-}
 
+}
