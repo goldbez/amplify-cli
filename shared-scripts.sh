@@ -562,4 +562,5 @@ function _waitForJobs {
 		echo "Waiting for these jobs: $intersecting_jobs"
 		num_incomplete_jobs=$(echo $intersecting_jobs | jq '. | length')
 	done
+    
 }
