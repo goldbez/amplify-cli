@@ -1,8 +1,6 @@
 version: 0.2
 env:
   shell: bash
-  variables:
-    WAIT_FOR_IDENTIFIERS: abc def ghi jkl mno pqr
 phases:
   build:
     commands:
