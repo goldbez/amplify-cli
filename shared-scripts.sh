@@ -529,3 +529,7 @@ function _downloadReportsFromS3 {
     aws s3 sync "s3://$AGGREGATED_REPORTS_BUCKET_NAME/$source_version" .
     for file in $(find . -mindepth 2 -type f); do mv $file ./$(dirname $file).xml; done
 }
+
+# function _wait_for_jobs {
+    
+# }
