@@ -533,6 +533,7 @@ function _downloadReportsFromS3 {
 function _waitForJobs {
 	expected_source_version=$1
 	jobs_depended_on=$2
+	echo "jobs_depended_on $jobs_depended_on"
 	jobs_depended_on_json=$(echo $jobs_depended_on | jq -R 'split(" ")')
 	echo "jobs_depended_on_json $jobs_depended_on_json"
 	fail_flag="0"
