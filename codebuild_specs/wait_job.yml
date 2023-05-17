@@ -1,0 +1,11 @@
+version: 0.2
+env:
+  shell: bash
+  variables:
+    WAIT_FOR_IDENTIFIERS: abc def ghi jkl mno pqr
+phases:
+  build:
+    commands:
+      - echo $WAIT_IDS
+      - echo "for loop:"
+      - for i in $WAIT_IDS; echo $i; done
