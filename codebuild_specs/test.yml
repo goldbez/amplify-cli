@@ -8,3 +8,4 @@ phases:
     commands:
       # - export CODEBUILD_SOURCE_VERSION="3f55ee2acf20f508b8a7a5c1e1cfc604752c9a17"
       - source ./shared-scripts.sh && _testLinux
+      - codebuild-breakpoint
