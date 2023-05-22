@@ -564,5 +564,5 @@ function _waitForJobs {
         num_incomplete_jobs=$(echo $intersecting_jobs | jq '. | length')
         echo "incomplete_job_ids_in_batch $incomplete_job_ids_in_batch"
     done
-    echo "No specified jobs still in progress."
+    echo "No specified jobs still in progress.  "
 }
