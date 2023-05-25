@@ -218,6 +218,7 @@ export const startOpensearchEmulator = async (
     ]);
     printer.info('Successfully launched OpenSearch Simulator on' + JSON.stringify({ port, time: Date.now() - startTime }));
   } catch (err) {
+    console.log('error here', err);
     // retry starting the Simulator after a small "back off" time
     // if we have a premature exit or the port is bound in a different process.
     if (err.code === 'premature' || err.code === 'port_taken') {
