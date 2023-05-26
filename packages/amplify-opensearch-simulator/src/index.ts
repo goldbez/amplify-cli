@@ -166,6 +166,9 @@ export const launch = async (
   printer.info('Spawning OpenSearch Simulator with options: ' + JSON.stringify({ args, cwd: getOpensearchLocalDirectory() }));
   const openSearchBinPath = await getPathToOpenSearchBinary();
 
+  console.log(`openSearchBinPath: ${openSearchBinPath}`);
+  console.log(`args: ${args}`);
+
   const proc = execa(openSearchBinPath, args, {
     cwd: getOpensearchLocalDirectory(),
   });
