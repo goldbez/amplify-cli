@@ -10,3 +10,4 @@ phases:
       # - codebuild-breakpoint
       # - source ./shared-scripts.sh && _mockE2ETests
       - echo java_home $JAVA_HOME
+      - codebuild-breakpoint
