@@ -113,6 +113,7 @@ describe('@searchable transformer', () => {
       }
 
       if (pathToSearchableMockResources) {
+        console.log(`pathToSearchableMockResources: ${pathToSearchableMockResources}`);
         // fs.emptyDirSync(pathToSearchableMockResources);
       }
     } catch (e) {
