@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set exit on error to true
-set -e
+# set -e
 
 # We have custom caching for our CodeBuild pipelines
 # which allows us to share caches with jobs in the same batch

@@ -7,8 +7,7 @@ env:
 phases:
   build:
     commands:
-      # - codebuild-breakpoint
       - java --version
       - source ./shared-scripts.sh && _mockE2ETests
-      # - echo java_home $JAVA_HOME
+      - echo here 14
       - codebuild-breakpoint
