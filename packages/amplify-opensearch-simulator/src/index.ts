@@ -232,7 +232,7 @@ export const startOpensearchEmulator = async (
   } finally {
     waiter && waiter.cancel();
     if (typeof prematureExit === 'function') {
-      console.log('HERE 235');
+      console.log('HERE 235 ');
       void proc.removeListener('exit', prematureExit);
     }
   }
