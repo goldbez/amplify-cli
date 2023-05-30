@@ -4,8 +4,8 @@ env:
 phases:
   build:
     commands:
+      - source ./shared-scripts.sh && _buildLinux
       - codebuild-breakpoint
-      # - source ./shared-scripts.sh && _buildLinux
 
 artifacts:
   files:
