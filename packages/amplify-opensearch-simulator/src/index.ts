@@ -217,7 +217,7 @@ export const startOpensearchEmulator = async (
     await Promise.race([
       startingEmulatorPromise(opts, proc, port),
       waiter.promise.then(startingTimeout),
-      // exitingEmulatorPromise(proc, prematureExit),
+      exitingEmulatorPromise(proc, prematureExit),
     ]);
     printer.info('Successfully launched OpenSearch Simulator on' + JSON.stringify({ port, time: Date.now() - startTime }));
   } catch (err) {
