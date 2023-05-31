@@ -282,7 +282,8 @@ export const startingEmulatorPromise = (opts: Required<OpenSearchEmulatorOptions
 
 export const exitingEmulatorPromise = (proc: execa.ExecaChildProcess<string>, prematureExit: $TSAny) => {
   return new Promise((accept, reject) => {
-    prematureExit = () => {
+    prematureExit = (e: Error) => {
+      console.log('error on proc', e);
       const err: $TSAny = new Error('premature exit');
       err.code = 'premature';
       void proc.removeListener('exit', prematureExit);
