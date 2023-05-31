@@ -7,6 +7,7 @@ phases:
       - cd ./scripts
       - npm install -g ts-node
       - npm install aws-sdk
+      - echo "WAIT_FOR_IDS_FILE_PATH $WAIT_FOR_IDS_FILE_PATH"
       - ts-node ./wait-for-all-codebuild.ts $CODEBUILD_RESOLVED_SOURCE_VERSION ../$WAIT_FOR_IDS_FILE_PATH AmplifyCLI-E2E-Testing
       - cd ..
       - source ./shared-scripts.sh && _downloadReportsFromS3 $CODEBUILD_SOURCE_VERSION
