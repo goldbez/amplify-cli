@@ -24,7 +24,7 @@ import { modifiedApi } from './resources/modified-api-index';
 
 export function getSchemaPath(schemaName: string): string {
   if (process.env.CODEBUILD_SRC_DIR) {
-    return path.join(process.env.CODEBUILD_SRC_DIR, 'amplify-e2e-tests', 'schemas', schemaName);
+    return path.join(process.env.CODEBUILD_SRC_DIR, 'packages', 'amplify-e2e-tests', 'schemas', schemaName);
   }
   return path.join(__dirname, '..', '..', '..', 'amplify-e2e-tests', 'schemas', schemaName);
 }
