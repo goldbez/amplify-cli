@@ -111,4 +111,4 @@ Before pushing code or sending a pull request, do the following:
 
 We are thankful for any contributions from the community. Look at our [Contribution Guidelines](https://github.com/aws-amplify/amplify-cli/blob/dev/CONTRIBUTING.md).
 
-TESTING CHANGE 5
+TESTING CHANGE 6
