@@ -15,4 +15,5 @@ phases:
       # - source shared-scripts.sh && _waitForJobs build_linux requirePrevJobsToSucceed
       # - source ./shared-scripts.sh && _mockE2ETests
       - export SECOND_BREAKPOINT=1
+      - whoami
       - codebuild-breakpoint
