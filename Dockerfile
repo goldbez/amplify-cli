@@ -72,7 +72,22 @@ ENV PKG_CACHE_PATH=/root/pkg-cache
 COPY pkg-cache $PKG_CACHE_PATH
 RUN echo $PKG_CACHE_PATH
 
-RUN useradd codebuild-user
+# RUN useradd codebuild-user
+
+RUN adduser --disabled-password \
+--gecos '' codebuild-user
+
+#  Add new user docker to sudo group
+RUN adduser codebuild-user sudo
+
+# Ensure sudo group users are not 
+# asked for a password when using 
+# sudo command by ammending sudoers file
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> \
+/etc/sudoers
+
+RUN echo 'codebuild-user ALL = (ALL) ALL' >> \
+/etc/sudoers
 
 #=======================End of layer: core  =================
 
