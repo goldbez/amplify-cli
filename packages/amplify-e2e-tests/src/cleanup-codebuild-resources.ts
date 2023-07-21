@@ -13,7 +13,17 @@ import {
 import fs from 'fs-extra';
 import _ from 'lodash';
 import path from 'path';
-import { AWS_REGIONS_TO_RUN_TESTS } from './cci-utils';
+
+const AWS_REGIONS_TO_RUN_TESTS = [
+  'us-east-1',
+  'us-east-2',
+  'us-west-2',
+  'eu-west-2',
+  'eu-central-1',
+  'ap-northeast-1',
+  'ap-southeast-1',
+  'ap-southeast-2',
+];
 
 const AWS_REGIONS_TO_RUN_TESTS_PINPOINT = AWS_REGIONS_TO_RUN_TESTS.filter((region) => region !== 'eu-west-3');
 
