@@ -97,3 +97,5 @@ batch:
       buildspec: codebuild_specs/verify_versions_match.yml
       depend-on:
         - publish_to_local_registry
+    - identifier: cleanup_resources
+      buildspec: codebuild_specs/cleanup_resources.yml

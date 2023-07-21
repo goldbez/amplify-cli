@@ -529,3 +529,13 @@ function _buildTestsStandalone {
     echo "Running yarn build-tests"
     yarn build-tests
 }
+
+function _cleanUpResources {
+    loadCache repo $CODEBUILD_SRC_DIR
+    loadCache .cache $HOME/.cache
+    _loadTestAccountCredentials
+    echo "Executing resource cleanup"
+    cd packages/amplify-e2e-tests/src
+    ts-node cleanup-codebuild-resources.ts
+    _unassumeTestAccountCredentials
+}
